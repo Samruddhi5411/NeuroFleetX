@@ -1,4 +1,6 @@
 
-neurofleetfrontend/node_modules/
+**/node_modules/
 
 
+*.log
+.env

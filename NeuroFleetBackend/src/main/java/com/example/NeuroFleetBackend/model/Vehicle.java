@@ -1,8 +1,8 @@
 package com.example.NeuroFleetBackend.model;
 
-
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 
 @Entity
 @Table(name = "vehicles")
@@ -18,17 +18,23 @@ public class Vehicle {
     @Column(nullable = false)
     private String model;
 
-    private String type; // CAR, BIKE, TRUCK, VAN, etc.
+    private String type; 
 
     @Column(nullable = false)
-    private String status; // AVAILABLE, IN_USE, MAINTENANCE, OUT_OF_SERVICE
+    private String status; 
 
     // Telemetry fields
     private Double latitude;
     private Double longitude;
     private Double speed; // km/h
-    private Double batteryLevel; // percentage (0-100) for electric vehicles
-    private Double fuelLevel; // percentage (0-100)
+    
+    @DecimalMin(value = "0.0", message = "Battery level must be between 0 and 100")
+    @DecimalMax(value = "100.0", message = "Battery level must be between 0 and 100")
+    private Double batteryLevel;  
+    
+    @DecimalMin(value = "0.0", message = "Fuel level must be between 0 and 100")
+    @DecimalMax(value = "100.0", message = "Fuel level must be between 0 and 100")
+    private Double fuelLevel; 
 
     @Column(name = "last_updated")
     private java.time.LocalDateTime lastUpdated;

@@ -1,7 +1,5 @@
 package com.example.NeuroFleetBackend.security;
 
-
-
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
@@ -35,7 +33,7 @@ public class SecurityConfig {
         http
             .cors(cors -> cors.configurationSource(request -> {
                 CorsConfiguration config = new CorsConfiguration();
-                config.setAllowedOrigins(List.of("http://localhost:3001"));
+                config.setAllowedOrigins(List.of("http://localhost:3002"));
                 config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
                 config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
                 config.setExposedHeaders(List.of("Authorization"));
@@ -49,6 +47,12 @@ public class SecurityConfig {
                 
                 // Vehicle endpoints - role-based access
                 .requestMatchers("/api/vehicles/**").hasAnyAuthority("ADMIN", "FLEET_MANAGER", "DRIVER")
+                
+                // Booking endpoints - customers, drivers, and admins can book
+                .requestMatchers("/api/bookings/**").hasAnyAuthority("ADMIN", "FLEET_MANAGER", "CUSTOMER", "DRIVER")
+                
+                // Dashboard endpoints
+                .requestMatchers("/api/dashboard/**").authenticated()
                 
                 // Admin-only endpoints
                 .requestMatchers("/api/admin/**").hasAuthority("ADMIN")

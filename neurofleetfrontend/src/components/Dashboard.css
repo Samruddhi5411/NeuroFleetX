@@ -4,6 +4,8 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+
+
 .dashboard-header {
   background: white;
   padding: 20px 40px;
@@ -16,6 +18,7 @@
 .dashboard-header h1 {
   color: #667eea;
   font-size: 28px;
+  margin: 0;
 }
 
 .user-info {
@@ -37,15 +40,19 @@
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s;
+  font-weight: 500;
 }
 
 .logout-btn:hover {
   background: #d32f2f;
 }
 
+
+
 .dashboard-content {
   padding: 40px;
 }
+
 
 .stats-grid {
   display: grid;
@@ -59,7 +66,8 @@
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-left: 4px solid #667eea;
 }
 
 .stat-card:hover {
@@ -70,14 +78,16 @@
 .stat-card h3 {
   color: #666;
   font-size: 14px;
-  margin-bottom: 10px;
+  margin: 0 0 10px 0;
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .stat-number {
   font-size: 36px;
   font-weight: bold;
   color: #333;
+  margin: 0;
 }
 
 .stat-card.available {
@@ -92,10 +102,57 @@
   border-left: 4px solid #ff9800;
 }
 
+
+
+.tabs-section {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.tabs-header {
+  display: flex;
+  border-bottom: 2px solid #e0e0e0;
+  background: #fafafa;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 15px 30px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  background: #f5f5f5;
+  color: #667eea;
+}
+
+.tab-btn.active {
+  color: #667eea;
+  border-bottom-color: #667eea;
+  background: white;
+}
+
+.tabs-content {
+  padding: 30px;
+  min-height: 400px;
+}
+
+
+
 .action-buttons {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
+  margin-top: 20px;
 }
 
 .primary-btn {
@@ -107,8 +164,124 @@
   font-size: 16px;
   cursor: pointer;
   transition: background 0.3s;
+  font-weight: 500;
 }
 
 .primary-btn:hover {
   background: #5568d3;
+}
+
+.primary-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+
+
+.loading-state,
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-state p,
+.error-state p {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+}
+
+.error-text {
+  color: #d32f2f;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 24px;
+  }
+
+  .dashboard-content {
+    padding: 20px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs-header {
+    overflow-x: auto;
+  }
+
+  .tab-btn {
+    min-width: 150px;
+  }
+
+  .tabs-content {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-header {
+    padding: 15px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 20px;
+  }
+
+  .user-info {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .logout-btn {
+    width: 100%;
+  }
+
+  .dashboard-content {
+    padding: 15px;
+  }
+
+  .stat-card {
+    padding: 20px;
+  }
+
+  .stat-number {
+    font-size: 28px;
+  }
 }
